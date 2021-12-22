@@ -1,5 +1,6 @@
 package imgui;
 
+import imgui.binding.ApiMetadata;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiDragDropFlags;
 import imgui.flag.ImGuiInputTextFlags;
@@ -21,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+@ApiMetadata("imgui/imgui.groovy")
 public class ImGui {
     private static final String LIB_PATH_PROP = "imgui.library.path";
     private static final String LIB_NAME_PROP = "imgui.library.name";

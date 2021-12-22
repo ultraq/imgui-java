@@ -8,6 +8,7 @@ repositories {
 
 ext {
     jnigenVersion = '2.0.1'
+    spoonVersion = '9.0.0'
 }
 
 dependencies {
@@ -15,4 +16,5 @@ dependencies {
     implementation localGroovy()
 
     implementation "com.badlogicgames.gdx:gdx-jnigen:$jnigenVersion"
+    implementation "fr.inria.gforge.spoon:spoon-core:$spoonVersion"
 }

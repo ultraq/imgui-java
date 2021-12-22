@@ -1,3 +1,4 @@
+import tool.generator.GenerateApi
 import tool.generator.GenerateLibs
 
 plugins {
@@ -15,6 +16,17 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+compileJava {
+    dependsOn 'generateApi'
+}
+
+sourceSets {
+    main.java.srcDirs = ['build/generated/api']
+    raw.java.srcDirs = ['src/main/java']
+}
+
+tasks.register('generateApi', GenerateApi)
 
 tasks.register('generateLibs', GenerateLibs) {
     it.dependsOn assemble
