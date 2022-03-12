@@ -35,6 +35,12 @@ switch (findProperty('deployType')) {
         moduleName = 'imgui.natives.macos'
         libName = 'libimgui-java64.dylib'
         break
+    case 'macosarm':
+        packageName = 'imgui-java-natives-macos-arm64'
+        packageDesc = 'Native binaries for imgui-java binding for MacOS with ARM processors'
+        moduleName = 'imgui.natives.macosarm64'
+        libName = 'libimgui-javaarm64.dylib'
+        break
 }
 
 if (findProperty('freetype') == 'true') {
