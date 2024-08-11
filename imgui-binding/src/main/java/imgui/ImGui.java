@@ -46,6 +46,7 @@ public class ImGui {
     private static final ImGuiStyle STYLE;
     private static final ImGuiViewport MAIN_VIEWPORT;
     private static final ImGuiPlatformIO PLATFORM_IO;
+    private static final ImGuiTableSortSpecs TABLE_SORT_SPECS;
 
     static {
         final String libPath = System.getProperty(LIB_PATH_PROP);
@@ -81,6 +82,7 @@ public class ImGui {
         STYLE = new ImGuiStyle(0);
         MAIN_VIEWPORT = new ImGuiViewport(0);
         PLATFORM_IO = new ImGuiPlatformIO(0);
+        TABLE_SORT_SPECS = new ImGuiTableSortSpecs(0);
 
         nInitJni();
         ImFontAtlas.nInit();
@@ -4617,7 +4619,14 @@ public class ImGui {
     //   wastefully sort your data every frame!
     // - Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable().
 
-    // TODO: TableGetSortSpecs()
+    public static ImGuiTableSortSpecs tableGetSortSpecs() {
+        TABLE_SORT_SPECS.ptr = nTableGetSortSpecs();
+        return TABLE_SORT_SPECS;
+    }
+
+    private static native long nTableGetSortSpecs(); /*
+        return (intptr_t)ImGui::TableGetSortSpecs();
+    */
 
     // Tables: Miscellaneous functions
     // - Functions args 'int column_n' treat the default value of -1 as the same as passing the current column index.
