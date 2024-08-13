@@ -3,7 +3,7 @@ package imgui;
 import imgui.binding.ImGuiStruct;
 
 /**
- * Sorting specification for one column of a table (sizeof == 12 bytes)
+ * Sorting specification for one column of a table
  */
 public final class ImGuiTableColumnSortSpecs extends ImGuiStruct {
 

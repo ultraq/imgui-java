@@ -10,8 +10,6 @@ import imgui.binding.ImGuiStruct;
  */
 public final class ImGuiTableSortSpecs extends ImGuiStruct {
 
-    private static final ImGuiTableColumnSortSpecs COLUMN_SORT_SPECS = new ImGuiTableColumnSortSpecs(0);
-
     public ImGuiTableSortSpecs(final long ptr) {
         super(ptr);
     }
@@ -25,17 +23,29 @@ public final class ImGuiTableSortSpecs extends ImGuiStruct {
     /**
      * Pointer to sort spec array.
      */
-    // Currently support just 1 sorting column
-    public ImGuiTableColumnSortSpecs getSpecs() {
-        COLUMN_SORT_SPECS.ptr = nGetSpecs();
-        return COLUMN_SORT_SPECS;
+    public ImGuiTableColumnSortSpecs[] getSpecs() {
+        long[] specsPointers = nGetSpecs();
+        ImGuiTableColumnSortSpecs[] specs = new ImGuiTableColumnSortSpecs[specsPointers.length];
+        for (int i = 0; i < specsPointers.length; i++) {
+            specs[i] = new ImGuiTableColumnSortSpecs(specsPointers[i]);
+        }
+        return specs;
     }
 
     /**
      * Sort spec count. Most often 1. May be > 1 when ImGuiTableFlags_SortMulti is enabled. May be == 0 when ImGuiTableFlags_SortTristate is enabled.
      */
-    private native long nGetSpecs(); /*
-        return (intptr_t)IMGUI_TABLE_SORT_SPECS->Specs;
+    private native long[] nGetSpecs(); /*
+        const ImGuiTableColumnSortSpecs* specs = IMGUI_TABLE_SORT_SPECS->Specs;
+        int specsCount = IMGUI_TABLE_SORT_SPECS->SpecsCount;
+        jlong jBuf[specsCount];
+        for (int i = 0; i < specsCount; i++) {
+            jBuf[i] = (intptr_t)specs;
+            specs++;
+        }
+        jlongArray result = env->NewLongArray(specsCount);
+        env->SetLongArrayRegion(result, 0, specsCount, jBuf);
+        return result;
     */
 
     public native int getSpecsCount(); /*
